@@ -1,0 +1,76 @@
+<div class="container">
+    <form [formGroup] = 'todoForm'>
+        <div class="todo-input">
+            <input formControlName="item" type="text" placeholder="Add Project" >
+            <button *ngIf="!isEditEnabled" (click)="addTask()">Add Project</button>
+            <button *ngIf="isEditEnabled" (click)="updateTask()">Update Project</button>
+        </div>
+    </form>
+    
+    <div class="kanban-list">
+        <div class="kanban">
+            <div cdkDropListGroup>
+                <div class="todo-container">
+                    <div class="todo">
+                        <div class="example-container">
+                            <h2>To do</h2>
+                        
+                            <div
+                              cdkDropList
+                              [cdkDropListData]="tasks"
+                              class="example-list"
+                              (cdkDropListDropped)="drop($event)">
+                              <div class="example-box" *ngFor="let item of tasks; let i = index" cdkDrag>{{item.description}}
+                                <div class="box">
+                                    <ion-icon class="trash" name="trash-outline" (click) = "deleteTask(i)"></ion-icon>
+                                    <ion-icon class="edit" name="create-outline" (click) = 'onEditTask(i, item)'></ion-icon>
+    
+                                  </div>
+                              </div>
+                           
+                            </div>
+                        </div>
+                    </div>
+                    <div class="todo">
+                        <div class="example-container">
+                            <h2>In Progress</h2>
+                        
+                            <div
+                              cdkDropList
+                              [cdkDropListData]="progress"
+                              class="example-list"
+                              (cdkDropListDropped)="drop($event)">
+                              <div class="example-box" *ngFor="let item of progress; let i = index" cdkDrag>{{item.description}}
+                                <div class="box">
+                                    <ion-icon class="trash" name="trash-outline" (click) = "deleteProgressTask(i)"></ion-icon>
+                                  </div>
+                              </div>
+                    
+                            </div>
+                        </div>
+                    </div>
+                    <div class="todo">
+                        <div class="example-container">
+                            <h2>
+                                Completed
+                            </h2>
+                        
+                            <div
+                              cdkDropList
+                              [cdkDropListData]="completed"
+                              class="example-list"
+                              (cdkDropListDropped)="drop($event)">
+                              <div class="example-box" *ngFor="let item of completed; let i = index" cdkDrag>{{item.description}}
+                                <div class="box">
+                                    <ion-icon class="trash" name="trash-outline" (click) = "deleteCompleteTask(i)"></ion-icon>
+                                    <ion-icon name="checkmark-outline"></ion-icon>
+                                </div>
+                              </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
